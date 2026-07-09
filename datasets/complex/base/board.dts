@@ -1,0 +1,21 @@
+/ {
+    model = "Demo Board";
+};
+
+&i2c1 {
+    status = "disabled";
+};
+
+&spi1 {
+    status = "disabled";
+};
+
+&uart1 {
+    status = "okay";
+    current-speed = <115200>;
+};
+
+&eth0 {
+    status = "okay";
+    phy-mode = "rmii";
+};

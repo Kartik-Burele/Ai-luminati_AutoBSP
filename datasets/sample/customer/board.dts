@@ -1,0 +1,11 @@
+&i2c1 {
+    temperature@48 {
+        compatible = "ti,tmp102";
+        reg = <0x48>;
+    };
+};
+
+&uart1 {
+    status = "okay";
+    current-speed = <9600>;
+};

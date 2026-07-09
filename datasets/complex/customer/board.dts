@@ -1,0 +1,35 @@
+/ {
+    model = "Customer Product X";
+};
+
+&i2c1 {
+    temperature@48 {
+        compatible = "ti,tmp102";
+        reg = <0x48>;
+    };
+
+    eeprom@50 {
+        compatible = "atmel,24c02";
+        reg = <0x50>;
+    };
+};
+
+&spi1 {
+    status = "disabled";
+};
+
+&uart1 {
+    status = "okay";
+    current-speed = <9600>;
+};
+
+&eth0 {
+    status = "okay";
+    phy-mode = "rmii";
+};
+
+&gpio1 {
+    led0 {
+        label = "status";
+    };
+};

@@ -1,0 +1,25 @@
+/ {
+    model = "Demo Board RevB";
+};
+
+&i2c1 {
+    status = "okay";
+};
+
+&spi1 {
+    status = "okay";
+    flash@0 {
+        compatible = "jedec,spi-nor";
+        reg = <0>;
+    };
+};
+
+&uart1 {
+    status = "okay";
+    current-speed = <230400>;
+};
+
+&eth0 {
+    status = "okay";
+    phy-mode = "rgmii";
+};
