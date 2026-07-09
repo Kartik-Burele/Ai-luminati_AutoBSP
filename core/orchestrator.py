@@ -18,6 +18,8 @@ from core.loader import DatasetLoader
 from core.diff_engine import DiffEngine
 from core.comparator import Comparator
 from agents.engineer import EngineerAgent
+from agents.reviewer import ReviewerAgent
+from agents.manager import ManagerAgent
 
 from models.pipeline_models import PipelineContext
 
@@ -35,6 +37,10 @@ class BSPPipeline:
         self.comparator = Comparator()
 
         self.engineer = EngineerAgent()
+        
+        self.reviewer = ReviewerAgent()
+        
+        self.manager = ManagerAgent()
 
     def run(self):
 
@@ -57,9 +63,11 @@ class BSPPipeline:
                 candidate=candidate,
             )
 
-            # contexts.append(context)
-            context = self.engineer.analyze(context)
-
             contexts.append(context)
 
-        return contexts
+        # Batch-process through agents in sequence
+        contexts = self.engineer.analyze_batch(contexts)
+        contexts = self.reviewer.analyze_batch(contexts)
+        contexts = self.manager.analyze_batch(contexts)
+
+        return contexts

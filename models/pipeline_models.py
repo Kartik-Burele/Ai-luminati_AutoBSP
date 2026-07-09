@@ -2,7 +2,7 @@ from dataclasses import dataclass
 
 from models.file_models import FileBundle, DiffSummary
 from models.conflict_models import ConflictCandidate
-from models.agent_models import EngineerAnalysis
+from models.agent_models import EngineerAnalysis, ReviewerAnalysis, ManagerAnalysis
 
 
 @dataclass(slots=True)
@@ -16,6 +16,6 @@ class PipelineContext:
 
     engineer: EngineerAnalysis | None = None
 
-    reviewer: dict | None = None
+    reviewer: ReviewerAnalysis | None = None
 
-    manager: dict | None = None
+    manager: ManagerAnalysis | None = None
