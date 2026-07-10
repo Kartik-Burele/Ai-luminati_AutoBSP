@@ -1,7 +1,9 @@
 import json
 
 from agents.gemini import GeminiClient
+from agents.gpt import GPTClient
 from agents.prompts import MANAGER_PROMPT
+from utils.json_cleaner import clean_json_response
 
 from models.pipeline_models import PipelineContext
 from models.agent_models import ManagerAnalysis
@@ -11,7 +13,8 @@ from models.conflict_models import CandidateType
 class ManagerAgent:
 
     def __init__(self):
-        self.llm = GeminiClient()
+        # self.llm = GeminiClient()
+        self.llm = GPTClient()
 
     def analyze_batch(
         self,
@@ -63,15 +66,18 @@ class ManagerAgent:
         # Parse JSON
         results = {}
         try:
-            # Clean markdown block wrappers if present
-            cleaned_response = response.strip()
-            if cleaned_response.startswith("```json"):
-                cleaned_response = cleaned_response[7:]
-            if cleaned_response.endswith("```"):
-                cleaned_response = cleaned_response[:-3]
-            cleaned_response = cleaned_response.strip()
+            cleaned_response = clean_json_response(response)
 
             data = json.loads(cleaned_response)
+            if isinstance(data, dict):
+                if "filename" in data:
+                    data = [data]
+                else:
+                    for val in data.values():
+                        if isinstance(val, list):
+                            data = val
+                            break
+            
             if isinstance(data, list):
                 for item in data:
                     filename = item.get("filename")

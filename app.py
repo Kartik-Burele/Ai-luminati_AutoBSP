@@ -24,7 +24,20 @@ st.set_page_config(
 st.markdown("""
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&family=JetBrains+Mono&display=swap" rel="stylesheet">
     <style>
-        /* Global Font */
+        /* Force Root Theme Variables */
+        :root {
+            --primary-color: #00f2fe !important;
+            --background-color: #0c0e17 !important;
+            --secondary-background-color: rgba(255, 255, 255, 0.03) !important;
+            --text-color: #cbd5e0 !important;
+        }
+
+        /* Global Background & Font Override */
+        .stApp {
+            background: radial-gradient(circle at 50% 50%, #151932 0%, #0c0e17 100%) !important;
+            font-family: 'Outfit', sans-serif;
+        }
+        
         html, body, [class*="css"] {
             font-family: 'Outfit', sans-serif;
         }
@@ -33,64 +46,170 @@ st.markdown("""
             font-family: 'JetBrains Mono', monospace !important;
         }
         
-        /* Metric Card Styles */
+        /* Headers with Neon Accents */
+        h1, h2, h3, h4, h5, h6 {
+            color: #ffffff !important;
+            font-weight: 700 !important;
+            text-shadow: 0 0 10px rgba(0, 242, 254, 0.25) !important;
+        }
+        
+        h3 {
+            border-left: 4px solid #00f2fe;
+            padding-left: 14px;
+            margin-bottom: 20px;
+            text-shadow: 0 0 8px rgba(0, 242, 254, 0.3) !important;
+        }
+
+        /* Top Header Strip & Decoration Override */
+        header[data-testid="stHeader"], .stAppHeader {
+            background: rgba(12, 14, 23, 0.9) !important;
+            backdrop-filter: blur(10px) !important;
+            -webkit-backdrop-filter: blur(10px) !important;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05) !important;
+        }
+        
+        div[data-testid="stDecoration"] {
+            background: linear-gradient(90deg, #00f2fe, #e100ff) !important;
+            height: 4px !important;
+        }
+        
+        /* Sidebar Glassmorphism */
+        [data-testid="stSidebar"] {
+            background: rgba(10, 12, 23, 0.9) !important;
+            backdrop-filter: blur(15px) !important;
+            -webkit-backdrop-filter: blur(15px) !important;
+            border-right: 1px solid rgba(255, 255, 255, 0.06) !important;
+        }
+        
+        [data-testid="stSidebar"] h2 {
+            text-shadow: 0 0 10px rgba(225, 0, 255, 0.3) !important;
+        }
+        
+        /* Metric Card Styles with Glassmorphism & Neon Glow */
         .metric-card {
-            background: linear-gradient(135deg, rgba(31, 38, 103, 0.2) 0%, rgba(20, 24, 75, 0.4) 100%);
-            border: 1px solid rgba(255, 255, 255, 0.08);
+            background: rgba(255, 255, 255, 0.02) !important;
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border: 1px solid rgba(0, 242, 254, 0.15) !important;
             border-radius: 16px;
             padding: 24px;
             text-align: center;
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
-            transition: all 0.3s ease;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.35), inset 0 0 12px rgba(0, 242, 254, 0.05);
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
         }
         .metric-card:hover {
-            transform: translateY(-4px);
-            border-color: rgba(255, 255, 255, 0.2);
-            box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.3);
+            transform: translateY(-5px);
+            border-color: rgba(225, 0, 255, 0.45) !important;
+            box-shadow: 0 12px 40px 0 rgba(225, 0, 255, 0.25), inset 0 0 12px rgba(225, 0, 255, 0.1);
         }
         .metric-value {
-            font-size: 36px;
+            font-size: 38px;
             font-weight: 700;
-            margin-bottom: 8px;
-            background: linear-gradient(90deg, #3b82f6, #8b5cf6);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            margin-bottom: 6px;
+            background: linear-gradient(90deg, #00f2fe, #4facfe, #e100ff) !important;
+            -webkit-background-clip: text !important;
+            -webkit-text-fill-color: transparent !important;
+            text-shadow: 0 0 20px rgba(0, 242, 254, 0.25);
         }
         .metric-label {
-            font-size: 14px;
-            font-weight: 500;
-            color: #9ca3af;
+            font-size: 13px;
+            font-weight: 600;
+            color: #a0aec0 !important;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 1.5px;
         }
         
-        /* Glassmorphism containers */
+        /* Glassmorphism Containers */
         .glass-panel {
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid rgba(255, 255, 255, 0.05);
+            background: rgba(255, 255, 255, 0.03) !important;
+            backdrop-filter: blur(12px) !important;
+            -webkit-backdrop-filter: blur(12px) !important;
+            border: 1px solid rgba(255, 255, 255, 0.07) !important;
             border-radius: 16px;
             padding: 24px;
-            margin-bottom: 20px;
+            margin-bottom: 24px;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
         }
         
-        /* Custom status badges */
+        /* Custom Status Badges with Neon Glow */
         .status-badge {
             display: inline-block;
-            padding: 4px 12px;
+            padding: 6px 16px;
             border-radius: 20px;
-            font-size: 12px;
-            font-weight: 600;
+            font-size: 13px;
+            font-weight: 700;
             text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
-        .badge-ai { background-color: rgba(239, 68, 68, 0.15); color: #ef4444; border: 1px solid rgba(239, 68, 68, 0.3); }
-        .badge-auto { background-color: rgba(16, 185, 129, 0.15); color: #10b981; border: 1px solid rgba(16, 185, 129, 0.3); }
-        .badge-no { background-color: rgba(107, 114, 128, 0.15); color: #9ca3af; border: 1px solid rgba(107, 114, 128, 0.3); }
+        .badge-ai { 
+            background-color: rgba(239, 68, 68, 0.12) !important; 
+            color: #ff4d4d !important; 
+            border: 1px solid rgba(239, 68, 68, 0.35) !important; 
+            box-shadow: 0 0 15px rgba(239, 68, 68, 0.2) !important;
+        }
+        .badge-auto { 
+            background-color: rgba(16, 185, 129, 0.12) !important; 
+            color: #10b981 !important; 
+            border: 1px solid rgba(16, 185, 129, 0.35) !important; 
+            box-shadow: 0 0 15px rgba(16, 185, 129, 0.2) !important;
+        }
+        .badge-no { 
+            background-color: rgba(107, 114, 128, 0.12) !important; 
+            color: #cbd5e0 !important; 
+            border: 1px solid rgba(107, 114, 128, 0.35) !important; 
+            box-shadow: 0 0 10px rgba(107, 114, 128, 0.15) !important;
+        }
+
+        /* Buttons Styling with Gradient & Glow */
+        .stButton button {
+            background: linear-gradient(90deg, #00f2fe 0%, #4facfe 100%) !important;
+            color: #ffffff !important;
+            border: none !important;
+            border-radius: 10px !important;
+            font-weight: 700 !important;
+            padding: 12px 24px !important;
+            box-shadow: 0 4px 15px rgba(0, 242, 254, 0.3) !important;
+            transition: all 0.3s ease !important;
+        }
+        .stButton button:hover {
+            transform: translateY(-2px) !important;
+            box-shadow: 0 6px 20px rgba(225, 0, 255, 0.45) !important;
+            background: linear-gradient(90deg, #00f2fe 0%, #e100ff 100%) !important;
+        }
+
+        /* Customize default Streamlit metrics & alerts */
+        div[data-testid="stMetricValue"] {
+            color: #00f2fe !important;
+            font-size: 32px !important;
+            font-weight: 700 !important;
+            text-shadow: 0 0 10px rgba(0, 242, 254, 0.2);
+        }
+        div[data-testid="stMetricLabel"] {
+            color: #a0aec0 !important;
+            font-size: 14px !important;
+            text-transform: uppercase !important;
+            letter-spacing: 0.5px;
+        }
+
+        /* Force readable widget text colors for radio buttons in Light Theme */
+        div[data-testid="stRadio"] label {
+            color: #ffffff !important;
+            font-weight: 600 !important;
+        }
+        div[data-testid="stRadio"] div[role="radiogroup"] label[data-baseweb="radio"] p {
+            color: #cbd5e0 !important;
+        }
     </style>
 """, unsafe_allow_html=True)
 
-# Main Title & Subheader
-st.title("AI BSP Merge Copilot 🚀")
-st.markdown("Automate three-way BSP analysis between **Base**, **Silicon Vendor**, and **Customer** codebases.")
+# Main Title & Subheader with premium styling
+st.markdown("""
+    <div style="text-align: center; margin-bottom: 40px; padding: 20px 0;">
+        <h1 style="background: linear-gradient(90deg, #00f2fe, #4facfe, #e100ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-shadow: 0 0 25px rgba(0, 242, 254, 0.15); margin-bottom: 12px; font-weight: 700; font-size: 3.2rem; letter-spacing: -0.5px;">AI BSP Merge Copilot 🚀</h1>
+        <p style="color: #a0aec0; font-size: 1.2rem; font-weight: 400; max-width: 800px; margin: 0 auto; line-height: 1.6;">Automate three-way BSP analysis between <strong>Base</strong>, <strong>Silicon Vendor</strong>, and <strong>Customer</strong> codebases.</p>
+    </div>
+""", unsafe_allow_html=True)
 
 # Project Root Resolution
 PROJECT_ROOT = Path(__file__).resolve().parent
@@ -157,7 +276,7 @@ else:
             st.sidebar.error("❌ ZIP must contain 'base/', 'vendor/', and 'customer/' subdirectories.")
             dataset_path = None
 
-run_pipeline = st.sidebar.button("Run Merge Analysis", type="primary", use_container_width=True)
+run_pipeline = st.sidebar.button("Run Merge Analysis", type="primary", width="stretch")
 
 if run_pipeline:
     if dataset_path:
@@ -226,7 +345,7 @@ if st.session_state.contexts is not None and len(st.session_state.contexts) > 0:
             })
             
         df = pd.DataFrame(table_data)
-        st.dataframe(df, use_container_width=True)
+        st.dataframe(df, width="stretch")
         
         # File selector for inspector below
         selected_filename = st.selectbox(
@@ -251,7 +370,7 @@ if st.session_state.contexts is not None and len(st.session_state.contexts) > 0:
                 template="plotly_dark",
                 color_discrete_map={"HIGH": "#ef4444", "MEDIUM": "#f59e0b", "LOW": "#10b981"}
             )
-            st.plotly_chart(fig_hours, use_container_width=True)
+            st.plotly_chart(fig_hours, width="stretch")
             
             # Chart 2: Scatter plot Complexity vs Risk
             fig_risk = px.scatter(
@@ -266,7 +385,7 @@ if st.session_state.contexts is not None and len(st.session_state.contexts) > 0:
                 template="plotly_dark",
                 size_max=30
             )
-            st.plotly_chart(fig_risk, use_container_width=True)
+            st.plotly_chart(fig_risk, width="stretch")
         else:
             st.info("No AI_REVIEW conflicts detected. All files are AUTO_MERGE or NO_CHANGE.")
             
@@ -304,7 +423,7 @@ if st.session_state.contexts is not None and len(st.session_state.contexts) > 0:
             data=md_report,
             file_name="bsp_migration_report.md",
             mime="text/markdown",
-            use_container_width=True
+            width="stretch"
         )
 
     # 3. File Inspector Panel

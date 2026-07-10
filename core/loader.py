@@ -25,6 +25,7 @@ SUPPORTED_EXTENSIONS = {
     ".txt",
     ".c",
     ".h",
+    ".conf",
 }
 
 

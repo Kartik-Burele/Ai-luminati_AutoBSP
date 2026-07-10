@@ -55,7 +55,7 @@ class BSPPipeline:
             # Temporary debugging
             print_diff(diff)
 
-            candidate = self.comparator.compare(diff)
+            candidate = self.comparator.compare(diff, bundle)
 
             context = PipelineContext(
                 bundle=bundle,

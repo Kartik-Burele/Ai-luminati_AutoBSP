@@ -2,12 +2,21 @@ from core.orchestrator import BSPPipeline
 import pathlib
 
 
+import sys
+
 def main():
 
     project_root = pathlib.Path(__file__).resolve().parent
-    pipeline = BSPPipeline(
-        str(project_root / "datasets" / "complex")
-    )
+    
+    dataset_name = sys.argv[1] if len(sys.argv) > 1 else "large"
+    dataset_path = project_root / "datasets" / dataset_name
+    
+    if not dataset_path.exists():
+        print(f"Error: Dataset path '{dataset_path}' does not exist.")
+        return
+
+    print(f"Running pipeline on dataset: '{dataset_name}'...")
+    pipeline = BSPPipeline(str(dataset_path))
 
 
 
